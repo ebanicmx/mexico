@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Atención</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #eef2f7;
+    margin: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+h2 {
+    text-align: center;
+    color: #1e40af;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.menu button {
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.menu button:active {
+    transform: scale(0.97);
+}
+
+.content {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 10px;
+    min-height: 100px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.form-btn {
+    margin-top: 12px;
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .menu {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🛍️ Atención al Cliente</h2>
+
+    <div class="menu">
+        <button onclick="mostrar('cuenta')">👤 Mi cuenta</button>
+        <button onclick="mostrar('pedidos')">📦 Pedidos</button>
+        <button onclick="mostrar('promo')">🔥 Promociones</button>
+        <button onclick="mostrar('costos')">🚚 Costos</button>
+        <button onclick="mostrar('error')">⚠️ Reportar</button>
+        <button onclick="mostrar('compra')">🛒 Compra</button>
+        <button onclick="mostrar('cashback')">💰 Cashback</button>
+    </div>
+
+    <div class="content" id="contenido">
+        Selecciona una opción 👆
+    </div>
+</div>
+
+<script>
+function mostrar(opcion) {
+    let contenido = document.getElementById("contenido");
+
+    switch(opcion) {
+
+        case "cuenta":
+            contenido.innerHTML = "👤 En tu cuenta encontrarás tus datos personales y pedidos.";
+        break;
+
+        case "pedidos":
+            contenido.innerHTML = "📦 Consulta tus compras desde tu perfil.";
+        break;
+
+        case "promo":
+            contenido.innerHTML = "🔥 Promociones disponibles en el menú principal.";
+        break;
+
+        case "costos":
+            contenido.innerHTML = "🚚 Entregas sin costo por Casa Blanca CB.";
+        break;
+
+        case "compra":
+            contenido.innerHTML = "🛒 Compras protegidas y garantizadas.";
+        break;
+
+        case "error":
+            contenido.innerHTML = `
+                ⚠️ Describe tu problema:
+                <textarea id="mensajeError" placeholder="Escribe aquí..."></textarea>
+                <button class="form-btn" onclick="enviarError()">Enviar por WhatsApp</button>
+            `;
+        break;
+
+        case "cashback":
+            contenido.innerHTML = `
+                💰 Solicita cashback:
+                <input id="nombre" type="text" placeholder="Nombre completo">
+                <input id="correo" type="email" placeholder="Correo electrónico">
+                <input id="telefono" type="tel" placeholder="Teléfono">
+                <button class="form-btn" onclick="enviarCashback()">Enviar por WhatsApp</button>
+            `;
+        break;
+    }
+}
+
+// 📲 ENVIAR ERROR
+function enviarError() {
+    let mensaje = document.getElementById("mensajeError").value;
+
+    let texto = `Reporte de error:%0A${mensaje}`;
+    let url = `https://wa.me/523318297670?text=${texto}`;
+
+    window.open(url, "_blank");
+}
+
+// 💰 ENVIAR CASHBACK
+function enviarCashback() {
+    let nombre = document.getElementById("nombre").value;
+    let correo = document.getElementById("correo").value;
+    let telefono = document.getElementById("telefono").value;
+
+    let texto = `Solicitud de Cashback:%0A%0ANombre: ${nombre}%0ACorreo: ${correo}%0ATeléfono: ${telefono}`;
+    let url = `https://wa.me/523318297670?text=${texto}`;
+
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
